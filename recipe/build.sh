@@ -5,10 +5,5 @@ chmod +x configure
 ./configure --prefix=$PREFIX --enable-cxx
 
 make
-
-if [ "$(uname)" != "Darwin" ];
-then
-    make check
-fi
-
+make check
 make install
