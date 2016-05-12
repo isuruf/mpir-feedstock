@@ -5,7 +5,7 @@ Home: http://mpir.org/
 
 Package license: LGPL 3
 
-Feedstock license: BSD
+Feedstock license: BSD 3-Clause
 
 Summary: Multiple Precision Integers and Rationals.
 
