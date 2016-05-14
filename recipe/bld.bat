@@ -23,14 +23,23 @@ if "%ARCH%"=="32" (
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_gc\lib_mpir_gc.vcxproj
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_cxx\lib_mpir_cxx.vcxproj
 
-mkdir %PREFIX%\mpir\lib\%PLATFORM%\Release
-
 cd ..
 
-copy lib\%PLATFORM%\Release\mpir.lib lib\%PLATFORM%\Release\gmp.lib
-copy lib\%PLATFORM%\Release\mpirxx.lib lib\%PLATFORM%\Release\gmpxx.lib
+REM move .lib and .pdb files to LIBRARY_LIB
+move lib\%PLATFORM%\Release\mpir.lib %LIBRARY_LIB%
+move lib\%PLATFORM%\Release\mpir.pdb %LIBRARY_LIB%
+move lib\%PLATFORM%\Release\mpirxx.lib %LIBRARY_LIB%
+move lib\%PLATFORM%\Release\mpirxx.pdb %LIBRARY_LIB%
 
-xcopy lib %PREFIX%\mpir\lib\ /E
+REM create gmp libs to be compatible
+copy %LIBRARY_LIB%\mpir.lib %LIBRARY_LIB%\gmp.lib
+copy %LIBRARY_LIB%\mpirxx.lib %LIBRARY_LIB%\gmpxx.lib
+
+REM move .h files to LIBRARY_INC
+xcopy lib\%PLATFORM%\Release\ %LIBRARY_INC%\ /E
+
+dir %LIBRARY_INC%
+dir %LIBRARY_LIB%
 
 :TRIM
   SetLocal EnableDelayedExpansion
