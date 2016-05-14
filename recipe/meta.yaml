@@ -26,6 +26,26 @@ test:
     - python
   files:
     - test.c
+  commands:
+    - test -f $LIBRARY_INC\\mpir.h              # [win]
+    - test -f $LIBRARY_INC\\mpirxx.h            # [win]
+    - test -f $LIBRARY_INC\\gmp.h               # [win]
+    - test -f $LIBRARY_INC\\gmpxx.h             # [win]
+    - test -f $LIBRARY_LIB\\mpir.lib            # [win]
+    - test -f $LIBRARY_LIB\\mpirxx.lib          # [win]
+    - test -f $LIBRARY_LIB\\gmp.lib             # [win]
+    - test -f $LIBRARY_LIB\\gmpxx.lib           # [win]
+
+    - test -f $PREFIX/include/mpir.h            # [unix]
+    - test -f $PREFIX/include/mpirxx.h          # [unix]
+    - test -f $PREFIX/lib/libmpir.a             # [unix]
+    - test -f $PREFIX/lib/libmpirxx.a           # [unix]
+
+    - test -f $PREFIX/lib/libmpir.so            # [linux]
+    - test -f $PREFIX/lib/libmpirxx.so          # [linux]
+
+    - test -f $PREFIX/lib/libmpir.dylib         # [osx]
+    - test -f $PREFIX/lib/libmpirxx.dylib       # [osx]
 
 about:
   home: http://mpir.org/
