@@ -23,6 +23,9 @@ if "%ARCH%"=="32" (
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_gc\lib_mpir_gc.vcxproj
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_cxx\lib_mpir_cxx.vcxproj
 
+if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
+if not exist "%LIBRARY_INC%" mkdir %LIBRARY_INC%
+
 cd ..
 
 REM move .lib and .pdb files to LIBRARY_LIB
