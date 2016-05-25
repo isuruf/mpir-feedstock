@@ -27,18 +27,16 @@ if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
 if not exist "%LIBRARY_INC%" mkdir %LIBRARY_INC%
 
 REM move .lib and .pdb files to LIBRARY_LIB
-move lib_mpir_gc\lib\%PLATFORM%\Release\mpir.lib %LIBRARY_LIB%\mpir.lib
-move lib_mpir_gc\lib\%PLATFORM%\Release\mpir.pdb %LIBRARY_LIB%\mpir.pdb
-move lib_mpir_cxx\lib\%PLATFORM%\Release\mpirxx.lib %LIBRARY_LIB%\mpirxx.lib
-move lib_mpir_cxx\lib\%PLATFORM%\Release\mpirxx.pdb %LIBRARY_LIB%\mpirxx.pdb
+move lib_mpir_gc\%PLATFORM%\Release\mpir.lib %LIBRARY_LIB%\mpir.lib
+move lib_mpir_gc\%PLATFORM%\Release\mpir.pdb %LIBRARY_LIB%\mpir.pdb
+move lib_mpir_cxx\%PLATFORM%\Release\mpirxx.lib %LIBRARY_LIB%\mpirxx.lib
+move lib_mpir_cxx\%PLATFORM%\Release\mpirxx.pdb %LIBRARY_LIB%\mpirxx.pdb
 
 REM create gmp libs to be compatible
 copy %LIBRARY_LIB%\mpir.lib %LIBRARY_LIB%\gmp.lib
 copy %LIBRARY_LIB%\mpirxx.lib %LIBRARY_LIB%\gmpxx.lib
 
-dir lib\%PLATFORM%\Release\
 cd ..
-dir lib\%PLATFORM%\Release\
 REM move .h files to LIBRARY_INC
 move lib\%PLATFORM%\Release\* %LIBRARY_INC%
 
