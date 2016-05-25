@@ -26,8 +26,6 @@ msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_cxx\lib_mpi
 if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
 if not exist "%LIBRARY_INC%" mkdir %LIBRARY_INC%
 
-cd ..
-
 REM move .lib and .pdb files to LIBRARY_LIB
 move lib\%PLATFORM%\Release\mpir.lib %LIBRARY_LIB%\mpir.lib
 move lib\%PLATFORM%\Release\mpir.pdb %LIBRARY_LIB%\mpir.pdb
@@ -38,6 +36,7 @@ REM create gmp libs to be compatible
 copy %LIBRARY_LIB%\mpir.lib %LIBRARY_LIB%\gmp.lib
 copy %LIBRARY_LIB%\mpirxx.lib %LIBRARY_LIB%\gmpxx.lib
 
+cd ..
 REM move .h files to LIBRARY_INC
 move lib\%PLATFORM%\Release\* %LIBRARY_INC%
 
