@@ -20,8 +20,16 @@ if "%ARCH%"=="32" (
 )
 
 
+msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release dll_mpir_gc\dll_mpir_gc.vcxproj
+
+dir dll_mpir_gc\%PLATFORM%\Release
+dir ..\dll\%PLATFORM%\Release
+
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_gc\lib_mpir_gc.vcxproj
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_cxx\lib_mpir_cxx.vcxproj
+
+dir dll_mpir_gc\%PLATFORM%\Release
+dir ..\dll\%PLATFORM%\Release
 
 if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
 if not exist "%LIBRARY_INC%" mkdir %LIBRARY_INC%
