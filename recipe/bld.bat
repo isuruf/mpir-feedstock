@@ -36,7 +36,9 @@ REM create gmp libs to be compatible
 copy %LIBRARY_LIB%\mpir.lib %LIBRARY_LIB%\gmp.lib
 copy %LIBRARY_LIB%\mpirxx.lib %LIBRARY_LIB%\gmpxx.lib
 
+dir lib\%PLATFORM%\Release\
 cd ..
+dir lib\%PLATFORM%\Release\
 REM move .h files to LIBRARY_INC
 move lib\%PLATFORM%\Release\* %LIBRARY_INC%
 
