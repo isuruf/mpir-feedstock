@@ -29,6 +29,7 @@ msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_gc\lib_mpir
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_cxx\lib_mpir_cxx.vcxproj
 
 dir dll_mpir_gc\%PLATFORM%\Release
+dir dll_mpir_gc\%PLATFORM%\Release\cxx
 dir ..\dll\%PLATFORM%\Release
 
 if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
