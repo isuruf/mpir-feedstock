@@ -19,21 +19,42 @@ if "%ARCH%"=="32" (
     set PLATFORM=x64
 )
 
-
+REM build static library
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_gc\lib_mpir_gc.vcxproj
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_cxx\lib_mpir_cxx.vcxproj
+REM build dll library
+msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release dll_mpir_gc\dll_mpir_gc.vcxproj
 
-mkdir %PREFIX%\mpir\lib\%PLATFORM%\Release
+if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
+if not exist "%LIBRARY_INC%" mkdir %LIBRARY_INC%
+if not exist "%LIBRARY_BIN%" mkdir %LIBRARY_BIN%
+
+REM move .lib, .dll and .pdb files to LIBRARY_LIB
+move lib_mpir_gc\%PLATFORM%\Release\mpir.lib %LIBRARY_LIB%\mpir_static.lib
+move lib_mpir_gc\%PLATFORM%\Release\mpir.pdb %LIBRARY_BIN%\mpir_static.pdb
+move lib_mpir_cxx\%PLATFORM%\Release\mpirxx.lib %LIBRARY_LIB%\mpirxx_static.lib
+move lib_mpir_cxx\%PLATFORM%\Release\mpirxx.pdb %LIBRARY_BIN%\mpirxx_static.pdb
+
+move dll_mpir_gc\%PLATFORM%\Release\mpir.lib %LIBRARY_LIB%\mpir.lib
+move dll_mpir_gc\%PLATFORM%\Release\mpir.dll %LIBRARY_BIN%\mpir.dll
+move dll_mpir_gc\%PLATFORM%\Release\mpir.pdb %LIBRARY_BIN%\mpir.pdb
+
+REM create gmp libs to be compatible
+copy %LIBRARY_LIB%\mpir_static.lib %LIBRARY_LIB%\gmp_static.lib
+copy %LIBRARY_LIB%\mpirxx_static.lib %LIBRARY_LIB%\gmpxx_static.lib
+copy %LIBRARY_LIB%\mpir.lib %LIBRARY_LIB%\gmp.lib
+copy %LIBRARY_BIN%\mpir.dll %LIBRARY_BIN%\gmp.dll
 
 cd ..
+REM move .h files to LIBRARY_INC
+move lib\%PLATFORM%\Release\*.h %LIBRARY_INC%
 
-copy lib\%PLATFORM%\Release\mpir.lib lib\%PLATFORM%\Release\gmp.lib
-copy lib\%PLATFORM%\Release\mpirxx.lib lib\%PLATFORM%\Release\gmpxx.lib
-
-xcopy lib %PREFIX%\mpir\lib\ /E
+dir %LIBRARY_INC%
+dir %LIBRARY_LIB%
 
 :TRIM
   SetLocal EnableDelayedExpansion
   set Params=%*
   for /f "tokens=1*" %%a in ("!Params!") do EndLocal & set %1=%%b
   exit /B
+
