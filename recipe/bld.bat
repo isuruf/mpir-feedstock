@@ -22,7 +22,7 @@ if "%ARCH%"=="32" (
 REM build static library
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_gc\lib_mpir_gc.vcxproj
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release lib_mpir_cxx\lib_mpir_cxx.vcxproj
-REM build dll library
+REM build dll library, cxx is also included.
 msbuild.exe /p:Platform=%PLATFORM% /p:Configuration=Release dll_mpir_gc\dll_mpir_gc.vcxproj
 
 if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
