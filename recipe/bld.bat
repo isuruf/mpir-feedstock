@@ -34,7 +34,10 @@ copy %LIBRARY_BIN%\mpir.dll %LIBRARY_BIN%\gmp.dll
 
 cd ..
 REM move .h files to LIBRARY_INC
-move lib\%PLATFORM%\Release\*.h %LIBRARY_INC%
+move lib\%PLATFORM%\Release\mpir.h %LIBRARY_INC%
+move lib\%PLATFORM%\Release\mpirxx.h %LIBRARY_INC%
+move lib\%PLATFORM%\Release\gmp.h %LIBRARY_INC%
+move lib\%PLATFORM%\Release\gmpxx.h %LIBRARY_INC%
 
 dir %LIBRARY_INC%
 dir %LIBRARY_LIB%
