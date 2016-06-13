@@ -21,6 +21,7 @@ requirements:
     - m4              # [unix]
     - python
     - toolchain       # [unix]
+    - yasm            # [unix]
 
 test:
   requires:
