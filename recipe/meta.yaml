@@ -10,7 +10,7 @@ source:
   md5: b31aa1ebc01b5fedf4ac43277c03feec
 
 build:
-  number: 1
+  number: 2
   skip: true          # [win and not (py34 or py35)]
   features:
     - vc10            # [win and py34]
@@ -58,6 +58,7 @@ test:
 about:
   home: http://mpir.org/
   license: LGPL 3
+  license_file: COPYING.LIB
   summary: Multiple Precision Integers and Rationals.
 
 extra:
