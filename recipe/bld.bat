@@ -52,6 +52,11 @@ move lib\%PLATFORM%\Release\mpirxx.h %LIBRARY_INC%
 move lib\%PLATFORM%\Release\gmp.h %LIBRARY_INC%
 move lib\%PLATFORM%\Release\gmpxx.h %LIBRARY_INC%
 
+move lib\%PLATFORM%\Release\config.h %LIBRARY_INC%\gmp-config.h
+move lib\%PLATFORM%\Release\gmp-impl.h %LIBRARY_INC%
+move lib\%PLATFORM%\Release\gmp-mparam.h %LIBRARY_INC%
+move lib\%PLATFORM%\Release\longlong.h %LIBRARY_INC%\gmp-longlong.h
+
 dir %LIBRARY_INC%
 dir %LIBRARY_LIB%
 
