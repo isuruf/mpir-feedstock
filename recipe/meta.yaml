@@ -8,9 +8,13 @@ source:
   fn: mpir-{{ version }}.tar.bz2
   url: http://mpir.org/mpir-{{ version }}.tar.bz2
   md5: b31aa1ebc01b5fedf4ac43277c03feec
+  patches:
+    # remove 'long/long long' pointer bug on Windows x64
+    # https://github.com/wbhart/mpir/commit/b84e7e24ca24fd4a965017ff56c25728d2d10fdc
+    - longlong.patch
 
 build:
-  number: 3
+  number: 4
   skip: true          # [win and not (py34 or py35)]
   features:
     - vc10            # [win and py34]
