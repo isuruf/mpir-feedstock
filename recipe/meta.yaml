@@ -13,6 +13,9 @@ source:
     # remove 'long/long long' pointer bug on Windows x64
     # https://github.com/wbhart/mpir/commit/b84e7e24ca24fd4a965017ff56c25728d2d10fdc
     - longlong.patch
+    # patch clz_tab compatibility with gmp
+    # https://github.com/wbhart/mpir/commit/171de8daed722b06ad4c99e4b6da99480bc13dd3
+    - clztab.patch
 
 build:
   number: 0
@@ -27,10 +30,13 @@ requirements:
     - python
     - toolchain       # [unix]
     - yasm            # [unix]
+    - vc 10           # [win and py34]
+    - vc 14           # [win and py35]
+  run:
+    - vc 10           # [win and py34]
+    - vc 14           # [win and py35]
 
 test:
-  requires:
-    - python
   files:
     - test.c
   commands:
