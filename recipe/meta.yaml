@@ -15,7 +15,7 @@ source:
     - longlong.patch
 
 build:
-  number: 4
+  number: 0
   skip: true          # [win and not (py34 or py35)]
   features:
     - vc10            # [win and py34]
