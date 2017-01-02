@@ -1,12 +1,13 @@
-{% set version = "2.7.2" %}
+{% set version = "2.7.3.dev0" %}
+{% set rel_version = "2.7.2" %}
 
 package:
   name: mpir
   version: {{ version }}
 
 source:
-  fn: mpir-{{ version }}.tar.bz2
-  url: http://mpir.org/mpir-{{ version }}.tar.bz2
+  fn: mpir-{{ rel_version }}.tar.bz2
+  url: http://mpir.org/mpir-{{ rel_version }}.tar.bz2
   md5: b31aa1ebc01b5fedf4ac43277c03feec
   patches:
     # remove 'long/long long' pointer bug on Windows x64
