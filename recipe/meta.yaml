@@ -18,7 +18,7 @@ source:
     - clztab.patch
 
 build:
-  number: 0
+  number: 1
   skip: true          # [win and not (py34 or py35)]
   features:
     - vc10            # [win and py34]
