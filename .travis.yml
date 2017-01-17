@@ -9,7 +9,6 @@ osx_image: xcode6.4
 env:
   matrix:
     
-    - BUILD_TYPE=Debug  CONDA_PY=35
     - BUILD_TYPE=Release  CONDA_PY=35
   global:
     # The BINSTAR_TOKEN secure variable. This is defined canonically in conda-forge.yml.

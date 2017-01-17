@@ -24,6 +24,10 @@ build:
   number: 1
   skip: true          # [win and not (py34 or py35)]
   skip: true          # [unix and not py35]
+{% if build_type=='Debug' %}
+  skip: true          # [unix]
+{% endif %}
+
   features:
     - vc10            # [win and py34]
     - vc14            # [win and py35]
