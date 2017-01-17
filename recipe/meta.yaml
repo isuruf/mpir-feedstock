@@ -1,8 +1,11 @@
 {% set version = "2.7.3.dev0" %}
 {% set rel_version = "2.7.2" %}
 
+{% set build_type = os.environ.get('BUILD_TYPE', 'Release') %}
+{% set dbg= '-debug' if build_type=='Debug' else '' %}
+
 package:
-  name: mpir
+  name: mpir{{ dbg }}
   version: {{ version }}
 
 source:
