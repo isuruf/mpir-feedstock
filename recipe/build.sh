@@ -3,7 +3,14 @@
 chmod +x configure
 export CFLAGS="-fPIC $CFLAGS"
 
-./configure --prefix=$PREFIX --enable-cxx --enable-fat
+if [ "$(uname)" == "Darwin" ];
+then
+    ./configure --prefix=$PREFIX --enable-cxx --build=x86_64-apple-darwin
+else
+    ./configure --prefix=$PREFIX --enable-cxx --enable-fat
+
+fi
+
 make
 make check
 make install
