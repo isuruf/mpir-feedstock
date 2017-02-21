@@ -1,14 +1,14 @@
-{% set version = "2.7.3.dev0" %}
-{% set rel_version = "2.7.2" %}
+{% set version = "3.0.0.rc1" %}
+{% set rel_version = "3.0.0-rc1" %}
 
 package:
   name: mpir
   version: {{ version }}
 
 source:
-  fn: mpir-{{ rel_version }}.tar.bz2
+  fn: mpir-{{ version }}.tar.bz2
   url: http://mpir.org/mpir-{{ rel_version }}.tar.bz2
-  md5: b31aa1ebc01b5fedf4ac43277c03feec
+  sha256: 90c3dabda2ee9100857dd73752e7a24b51adebee3821d39e7481451dea7f7370
 
 build:
   number: 1
