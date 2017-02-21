@@ -11,11 +11,9 @@ source:
   sha256: 90c3dabda2ee9100857dd73752e7a24b51adebee3821d39e7481451dea7f7370
 
 build:
-  number: 1
-  skip: true          # [win and not (py34 or py35)]
-  skip: true          # [unix and not py35]
+  number: 0
+  skip: true          # [not py35]
   features:
-    - vc10            # [win and py34]
     - vc14            # [win and py35]
 
 requirements:
@@ -24,10 +22,8 @@ requirements:
     - python
     - toolchain       # [unix]
     - yasm            # [unix]
-    - vc 10           # [win and py34]
     - vc 14           # [win and py35]
   run:
-    - vc 10           # [win and py34]
     - vc 14           # [win and py35]
 
 test:
