@@ -1,28 +1,19 @@
-{% set version = "2.7.3.dev0" %}
-{% set rel_version = "2.7.2" %}
+{% set version = "3.0.0" %}
 
 package:
   name: mpir
   version: {{ version }}
 
 source:
-  fn: mpir-{{ rel_version }}.tar.bz2
-  url: http://mpir.org/mpir-{{ rel_version }}.tar.bz2
-  md5: b31aa1ebc01b5fedf4ac43277c03feec
-  patches:
-    # remove 'long/long long' pointer bug on Windows x64
-    # https://github.com/wbhart/mpir/commit/b84e7e24ca24fd4a965017ff56c25728d2d10fdc
-    - longlong.patch
-    # patch clz_tab compatibility with gmp
-    # https://github.com/wbhart/mpir/commit/171de8daed722b06ad4c99e4b6da99480bc13dd3
-    - clztab.patch
+  fn: mpir-{{ version }}.tar.bz2
+  url: http://mpir.org/mpir-{{ version }}.tar.bz2
+  sha256: 52f63459cf3f9478859de29e00357f004050ead70b45913f2c2269d9708675bb
 
 build:
-  number: 1
+  number: 0
   skip: true          # [win and not (py34 or py35)]
   skip: true          # [unix and not py35]
   features:
-    - vc10            # [win and py34]
     - vc14            # [win and py35]
 
 requirements:
@@ -31,10 +22,8 @@ requirements:
     - python
     - toolchain       # [unix]
     - yasm            # [unix]
-    - vc 10           # [win and py34]
     - vc 14           # [win and py35]
   run:
-    - vc 10           # [win and py34]
     - vc 14           # [win and py35]
 
 test:
