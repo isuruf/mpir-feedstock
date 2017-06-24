@@ -60,5 +60,12 @@ build: off
 
 test_script:
     - "%CMD_IN_ENV% conda build recipe --quiet"
+    - if [%TARGET_ARCH%] == [x64] copy C:\bld\win-64\*.bz2 .
+    - if [%TARGET_ARCH%] == [x86] copy C:\bld\win-32\*.bz2 .
+    - echo "copied"
 deploy_script:
     - cmd: upload_or_check_non_existence .\recipe conda-forge --channel=main
+
+artifacts:
+    - path: '*.bz2'
+
