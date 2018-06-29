@@ -11,17 +11,18 @@ source:
 
 build:
   number: 0
-  skip: true          # [win and not (py34 or py35)]
-  skip: true          # [unix and not py35]
+  skip: true          # [win and vc<14]
+  run_exports:
+    - {{ pin_subpackage("mpir") }}
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-  host:
     - m4              # [unix]
     - python
     - yasm            # [unix]
+  host:
   run:
 
 test:
