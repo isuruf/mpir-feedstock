@@ -10,7 +10,7 @@ source:
   sha256: 52f63459cf3f9478859de29e00357f004050ead70b45913f2c2269d9708675bb
 
 build:
-  number: 0
+  number: 1
   skip: true          # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("mpir") }}
