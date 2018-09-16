@@ -2,8 +2,6 @@
 
 chmod +x configure
 
-export PATH=$PATH:$PREFIX/bin
-
 if [ "$(uname)" == "Darwin" ];
 then
     ./configure --prefix=$PREFIX --enable-cxx --build=x86_64-apple-darwin
