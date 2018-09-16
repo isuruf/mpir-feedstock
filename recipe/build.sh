@@ -4,9 +4,9 @@ chmod +x configure
 
 if [ "$(uname)" == "Darwin" ];
 then
-    ./configure --prefix=$PREFIX --enable-cxx --build=x86_64-apple-darwin
+    ./configure --prefix=$PREFIX --enable-pic --enable-cxx --build=x86_64-apple-darwin
 else
-    ./configure --prefix=$PREFIX --enable-cxx --enable-fat
+    ./configure --prefix=$PREFIX --enable-pic --enable-cxx --enable-fat
 fi
 
 make
