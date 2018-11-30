@@ -10,7 +10,7 @@ source:
   sha256: 52f63459cf3f9478859de29e00357f004050ead70b45913f2c2269d9708675bb
 
 build:
-  number: 1
+  number: 1002
   skip: true          # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("mpir") }}
@@ -26,6 +26,9 @@ requirements:
   run:
 
 test:
+  requires:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
   files:
     - test.c
   commands:

@@ -1,18 +1,14 @@
 #!/bin/bash
 
-source activate "${CONDA_DEFAULT_ENV}"
-
 chmod +x configure
-
-export PATH=$PATH:$PREFIX/bin
 
 if [ "$(uname)" == "Darwin" ];
 then
-    ./configure --prefix=$PREFIX --enable-cxx --build=x86_64-apple-darwin
+    ./configure --prefix=$PREFIX --with-pic --enable-cxx --build=x86_64-apple-darwin
 else
-    ./configure --prefix=$PREFIX --enable-cxx --enable-fat
+    ./configure --prefix=$PREFIX --with-pic --enable-cxx --enable-fat
 fi
 
-make
-make check
+make -j${CPU_COUNT}
+make check -j${CPU_COUNT}
 make install
