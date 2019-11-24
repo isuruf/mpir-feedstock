@@ -50,3 +50,7 @@ test_script:
 deploy_script:
     - set "GIT_BRANCH=%APPVEYOR_REPO_BRANCH%"
     - cmd: upload_package .\ .\recipe .ci_support\%CONFIG%.yaml
+
+on_finish:
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
