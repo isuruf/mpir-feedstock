@@ -5,7 +5,7 @@ chmod +x configure
 if [[ "$target_platform" == "osx-64" ]]; then
     ./configure --prefix=$PREFIX --with-pic --enable-cxx --build=x86_64-apple-darwin
 elif [[ "$target_platform" == "win-64" ]]; then
-    ./configure --prefix=$PREFIX --with-pic --enable-cxx --enable-fat --disable-static
+    ./configure --prefix=$PREFIX --with-pic --enable-cxx --enable-fat --disable-static --enable-gmpcompat
 else
     ./configure --prefix=$PREFIX --with-pic --enable-cxx --enable-fat
 fi
