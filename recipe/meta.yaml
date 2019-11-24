@@ -8,6 +8,8 @@ source:
   fn: mpir-{{ version }}.tar.bz2
   url: http://mpir.org/mpir-{{ version }}.tar.bz2
   sha256: 52f63459cf3f9478859de29e00357f004050ead70b45913f2c2269d9708675bb
+  patches:
+    - gh283.patch
 
 build:
   number: 1002
@@ -20,8 +22,10 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - m4              # [unix]
-    - python
-    - yasm            # [unix]
+    - make            # [unix]
+    - autotools_clang_conda  # [win]
+    - python *
+    - yasm
   host:
   run:
 

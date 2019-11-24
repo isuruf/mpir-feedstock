@@ -1,0 +1,140 @@
+commit 2bf2c6c5cfc2f8260719130c3f75bd7f52e8bb90
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sun Nov 24 20:55:56 2019 +0000
+
+    Support clang on windows
+
+diff --git a/compat.c b/compat.c
+index db3f4051..780699ff 100644
+--- a/compat.c
++++ b/compat.c
+@@ -24,18 +24,6 @@ MA 02110-1301, USA. */
+ #include "gmp-impl.h"
+ 
+ 
+-/* mpn_divexact_by3 was a function in gmp 3.0.1, but as of gmp 3.1 it's a
+-   macro calling mpn_divexact_by3c.  */
+-#if defined( _MSC_VER) && !defined( HAVE_NATIVE_mpn_divexact_by3 )
+-
+-mp_limb_t
+-__MPN (divexact_by3) (mp_ptr dst, mp_srcptr src, mp_size_t size)
+-{
+-  return mpn_divexact_by3 (dst, src, size);
+-}
+-
+-#endif
+-
+ /* mpn_divmod_1 was a function in gmp 3.0.1 and earlier, but marked obsolete
+    in both gmp 2 and 3.  As of gmp 3.1 it's a macro calling mpn_divrem_1. */
+ mp_limb_t
+diff --git a/configure.ac b/configure.ac
+index 5b363fb7..6f758565 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1932,9 +1932,12 @@ Use "--disable-static --enable-shared" to build just a DLL.])
+     #
+     # LDFLAGS="$LDFLAGS -Wl,--enable-auto-import"  this is too general 
+     if test "$enable_shared" = yes; then
+-      GMP_LDFLAGS="$GMP_LDFLAGS -no-undefined -Wl,--export-all-symbols"
+-      LIBGMP_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libmpir-3.dll.def"
+-      LIBGMPXX_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libmpirxx-3.dll.def"
++      GMP_LDFLAGS="$GMP_LDFLAGS -no-undefined"
++      if test "$with_gnu_ld" = yes; then
++        GMP_LDFLAGS="$GMP_LDFLAGS -Wl,--export-all-symbols"
++        LIBGMP_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libmpir-3.dll.def"
++        LIBGMPXX_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libmpirxx-3.dll.def"
++      fi
+       LIBGMP_DLL=1
+     fi
+     ;;
+diff --git a/mpn/x86_64w/haswell/avx/mul_1.asm b/mpn/x86_64w/haswell/avx/mul_1.asm
+index 76ef7952..446b8dc1 100644
+--- a/mpn/x86_64w/haswell/avx/mul_1.asm
++++ b/mpn/x86_64w/haswell/avx/mul_1.asm
+@@ -39,7 +39,7 @@
+         mov     rax, rdx
+         ret
+ 
+-.1:     FRAME_PROC ?mpn_sandybridge_mul, 0, reg_save_list
++.1:     FRAME_PROC ?mpn_haswell_avx_mul, 0, reg_save_list
+         mov     r11, 5
+         lea     rsi, [rdx+r8*8-40]
+         lea     rdi, [rcx+r8*8-40]
+diff --git a/mpn/x86_64w/haswell/avx/sqr_basecase.asm b/mpn/x86_64w/haswell/avx/sqr_basecase.asm
+index a7d6cbbf..753a5558 100644
+--- a/mpn/x86_64w/haswell/avx/sqr_basecase.asm
++++ b/mpn/x86_64w/haswell/avx/sqr_basecase.asm
+@@ -37,7 +37,7 @@
+ 	ret
+ 
+ 	xalign  32
+-.1:	FRAME_PROC mpn_sqr_basec1, 0, reg_save_list
++.1:	FRAME_PROC mpn_haswell_avx_sqr_basec1, 0, reg_save_list
+     mov     rdi, rcx
+     mov     rsi, rdx
+     mov     rdx, r8  
+diff --git a/mpn/x86_64w/haswell/mul_1.asm b/mpn/x86_64w/haswell/mul_1.asm
+index 76ef7952..923dd2d9 100644
+--- a/mpn/x86_64w/haswell/mul_1.asm
++++ b/mpn/x86_64w/haswell/mul_1.asm
+@@ -39,7 +39,7 @@
+         mov     rax, rdx
+         ret
+ 
+-.1:     FRAME_PROC ?mpn_sandybridge_mul, 0, reg_save_list
++.1:     FRAME_PROC ?mpn_haswell_mul, 0, reg_save_list
+         mov     r11, 5
+         lea     rsi, [rdx+r8*8-40]
+         lea     rdi, [rcx+r8*8-40]
+diff --git a/mpn/x86_64w/haswell/redc_1.asm b/mpn/x86_64w/haswell/redc_1.asm
+index 36b5ac60..b4215fbb 100644
+--- a/mpn/x86_64w/haswell/redc_1.asm
++++ b/mpn/x86_64w/haswell/redc_1.asm
+@@ -372,7 +372,7 @@
+     LEAF_PROC mpn_redc_1
+     cmp     r9, 1
+     je      one
+-    FRAME_PROC ?mpn_sandybridge_redc_1, 0, reg_save_list
++    FRAME_PROC ?mpn_haswell_redc_1, 0, reg_save_list
+     mov     rdi, rcx
+     mov     rsi, r8
+     mov     r8, rdx
+diff --git a/mpn/x86_64w/skylake/mul_1.asm b/mpn/x86_64w/skylake/mul_1.asm
+index 76ef7952..c2637efa 100644
+--- a/mpn/x86_64w/skylake/mul_1.asm
++++ b/mpn/x86_64w/skylake/mul_1.asm
+@@ -39,7 +39,7 @@
+         mov     rax, rdx
+         ret
+ 
+-.1:     FRAME_PROC ?mpn_sandybridge_mul, 0, reg_save_list
++.1:     FRAME_PROC ?mpn_skylake_mul, 0, reg_save_list
+         mov     r11, 5
+         lea     rsi, [rdx+r8*8-40]
+         lea     rdi, [rcx+r8*8-40]
+diff --git a/mpn/x86_64w/skylake/redc_1.asm b/mpn/x86_64w/skylake/redc_1.asm
+index 36b5ac60..356ffd24 100644
+--- a/mpn/x86_64w/skylake/redc_1.asm
++++ b/mpn/x86_64w/skylake/redc_1.asm
+@@ -372,7 +372,7 @@
+     LEAF_PROC mpn_redc_1
+     cmp     r9, 1
+     je      one
+-    FRAME_PROC ?mpn_sandybridge_redc_1, 0, reg_save_list
++    FRAME_PROC ?mpn_skylake_redc_1, 0, reg_save_list
+     mov     rdi, rcx
+     mov     rsi, r8
+     mov     r8, rdx
+diff --git a/mpn/x86_64w/skylake/sqr_basecase.asm b/mpn/x86_64w/skylake/sqr_basecase.asm
+index a7d6cbbf..c7cc05ae 100644
+--- a/mpn/x86_64w/skylake/sqr_basecase.asm
++++ b/mpn/x86_64w/skylake/sqr_basecase.asm
+@@ -37,7 +37,7 @@
+ 	ret
+ 
+ 	xalign  32
+-.1:	FRAME_PROC mpn_sqr_basec1, 0, reg_save_list
++.1:	FRAME_PROC mpn_skylake_sqr_basec1, 0, reg_save_list
+     mov     rdi, rcx
+     mov     rsi, rdx
+     mov     rdx, r8  
