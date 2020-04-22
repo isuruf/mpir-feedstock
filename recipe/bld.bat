@@ -11,7 +11,7 @@ EXIT 1
 REM Trim trailing whitespace that may prevent CMake from finding which generator to use
 call :TRIM VSTRING %VSTRING%
 
-cd build.vc%VSTRING%
+cd msvc/vs17
 
 if "%ARCH%"=="32" (
     set PLATFORM=Win32

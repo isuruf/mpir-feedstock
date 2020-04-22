@@ -1,5 +1,6 @@
 #!/bin/bash
 
+autoreconf -i
 chmod +x configure
 
 if [ "$(uname)" == "Darwin" ];
