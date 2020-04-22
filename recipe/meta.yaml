@@ -1,16 +1,14 @@
-{% set version = "3.0.0" %}
+{% set version = "3.0.1.dev0" %}
 
 package:
   name: mpir
   version: {{ version }}
 
 source:
-  fn: mpir-{{ version }}.tar.bz2
-  url: http://mpir.org/mpir-{{ version }}.tar.bz2
-  sha256: 52f63459cf3f9478859de29e00357f004050ead70b45913f2c2269d9708675bb
+  url: https://github.com/wbhart/mpir/archive/master.tar.gz
 
 build:
-  number: 1002
+  number: 0
   skip: true          # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("mpir") }}
