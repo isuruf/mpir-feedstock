@@ -5,7 +5,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/wbhart/mpir/archive/master.tar.gz
+  url: https://github.com/BrianGladman/mpir/archive/master.tar.gz
 
 build:
   number: 0
